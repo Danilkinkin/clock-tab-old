@@ -1,7 +1,7 @@
 var bgPage = chrome.extension.getBackgroundPage();
 var CLOCK = {
 	startClockFunction: function(data){
-		CLOCK = data.getData();		
+		CLOCK = data.getData();
 	}
 };
 
@@ -11,7 +11,7 @@ var CLOCK = {
 		document.body.classList.add("finish_load");
 		document.getElementById("messege").innerHTML = "Все готово!";
 		return;
-	}else{			
+	}else{
 		console.log(!localStorage.getItem("clear_path_ext"))
 		if(!localStorage.getItem("clear_path_ext")){
 			Window.DB.clearPath("/", undefined, function(){
@@ -33,7 +33,7 @@ var CLOCK = {
 					Window.DB.createFS(rootFS, "backups", function(isSuccess){
 						Window.DB.createFS(rootFS, "backgrounds", function(isSuccess, backgroundsFS){
 							Window.DB.createFS(backgroundsFS, "preview", function(isSuccess){
-								Window.DB.createFS(backgroundsFS, "full", function(isSuccess){									
+								Window.DB.createFS(backgroundsFS, "full", function(isSuccess){
 									createData(settingsFS, backgroundsFS);
 								});
 							});
@@ -53,7 +53,7 @@ function createData(settingsFS, backgroundsFS){
 			*/
 			background_switching_days: [true,true,true,true,true,true,true],
 			type_of_watch: 1,
-			hide_right_menu: true, 
+			hide_right_menu: true,
 			use_site_panel: true,
 			open_site_panel_start: false,
 			custom_tab_name: "clockTab",
@@ -176,8 +176,8 @@ function createData(settingsFS, backgroundsFS){
 				bgPage.Window.DB.set("/", {
 					file: new Blob([JSON.stringify(CLOCK)], {type: "application/json"}),
 					name: "watch_1.json"
-				}, function(){					
-					console.info("SUCCESS CREATE FILES FOR APPLICATION");	
+				}, function(){
+					console.info("SUCCESS CREATE FILES FOR APPLICATION");
 					loadBG();
 				}, settingsFS);
 			}, settingsFS)
@@ -199,7 +199,7 @@ function loadBG(){
 					file.switching_background_in_special.specifically_selection = {
 						name: "",
 						type: ""
-					}					
+					}
 					saveFile(file);
 				}, finStage);
 			}else
@@ -216,20 +216,20 @@ function loadBG(){
 					document.getElementById("start_work").style = null;
 					setTimeout(function(){
 						localStorage.setItem("first_contact", JSON.stringify(true));
-						localStorage.setItem("version", 6);		
+						localStorage.setItem("version", 7);
 						localStorage.setItem("training_stage", 0);
 						document.body.classList.add("finish_load");
 						document.getElementById("messege").innerHTML = "Все готово!"+(offline? " Но фон не был загружен так как нет подключения к сети." : "");
 						console.log("well done!");
 					}, 50);
 				}, 1000);
-			}		
+			}
 		},{type: "GET", blob: true}, function(percent){
 			document.getElementById("load_info").innerHTML = (Math.round(percent*0.2+80))+"%";
-		});			
+		});
 	},{type: "GET", blob: true}, function(percent){
 		document.getElementById("load_info").innerHTML = Math.round(percent*0.8)+"%";
-	});	
+	});
 }
 
 function notification(object){
@@ -240,5 +240,5 @@ document.getElementById("start_work").onclick = function(){
 	document.body.classList.add("hide");
 	setTimeout(function(){
 		window.open("main.html", "_self");
-	}, 300);	
+	}, 300);
 }

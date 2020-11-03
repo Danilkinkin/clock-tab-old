@@ -17,7 +17,7 @@ updateStack = [
 					a.use_site_panel = true;
 					a.site_panel_substrate = true;
 					a.site_panel_position = 3;
-					s(a);	
+					s(a);
 				}, function(){
 					Window.DB.set("/settings", {
 						file: new Blob([JSON.stringify({
@@ -63,7 +63,7 @@ updateStack = [
 				a.custom_tab_name = "clockTab";
 				a.dark_theme = false;
 				a.low_brightness_bg = false;
-				s(a);	
+				s(a);
 			}, callback);
 		});
 	},
@@ -77,7 +77,7 @@ updateStack = [
 			localStorage.setItem("training_stage", 8);
 			localStorage.setItem("version", 5);
 			Window.DB.changeFile("/settings/settings.json", function(a, s){
-				s(a);	
+				s(a);
 			}, callback);
 		});
 	},
@@ -92,8 +92,20 @@ updateStack = [
 			localStorage.setItem("version", 6);
 			Window.DB.changeFile("/settings/settings.json", function(a, s){
 				a.new_theme = false;
-				s(a);	
+				s(a);
 			}, callback);
+		});
+	},
+
+	function(callback){
+		//TO VER.7
+		Window.DB.changeFile("/settings/settings.json", function(file){
+			if(JSON.parse(localStorage.getItem("version")) >= 7){
+				callback();
+				return;
+			}
+			localStorage.setItem("training_stage", 8);
+			localStorage.setItem("version", 7);
 		});
 	}
 ];
@@ -111,7 +123,7 @@ document.getElementById("start_work").onclick = function(){
 	document.body.classList.add("hide");
 	setTimeout(function(){
 		window.open("main.html", "_self");
-	}, 300);	
+	}, 300);
 }
 
 document.getElementById("download_notes").onclick = function(){

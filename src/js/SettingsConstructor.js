@@ -27,7 +27,7 @@ function openMenu(){
 		]
 	}));
 
-	
+
 
 	/*--------------------------------------------------------------------------------------*/
 	/*-------------------------------НАСТРОЙКА ЧАСОВ----------------------------------------*/
@@ -39,8 +39,8 @@ function openMenu(){
 				bgPage.Window.DB.changeFile("/settings/settings.json", function(file){
 					constructorClockSettingsMenu(block, closeBlock, openBlock, addedCloseFunction, file);
 					openBlock(elem);
-				});				
-			}); 				
+				});
+			});
 		},
 		settings: {
 			class: "clear settings_button",
@@ -67,24 +67,24 @@ function openMenu(){
 							CLOCK.disconnectClock(function(){
 								if(file.type_of_watch != 0)
 								CLOCK.connectClock(data.type_of_watch, function(){
-									constructorClockSettings(data.type_of_watch, CLOCK.loadSettings);								
+									constructorClockSettings(data.type_of_watch, CLOCK.loadSettings);
 								});
 							});
-							saveFile(file);						
+							saveFile(file);
 						});
 					}
 				})
 			})
 		]);
-		
+
 		/*
 			LEFT MENU
 		*/
 		var rightMenu = UI.createElem({class: "settings_rightMenu hide"});
-		var gl_clockBlock = undefined;		
+		var gl_clockBlock = undefined;
 
 		function constructorClockSettings(type, callback){
-			if(gl_clockBlock){	
+			if(gl_clockBlock){
 				gl_clockBlock.addClass("hide", function(){
 					gl_clockBlock.remove();
 					gl_clockBlock = undefined;
@@ -115,7 +115,7 @@ function openMenu(){
 		addedCloseFunction(function(){
 			rightMenu.addClass("hide", function(){
 				rightMenu.remove();
-			});					
+			});
 		});
 	}
 
@@ -129,8 +129,8 @@ function openMenu(){
 				bgPage.Window.DB.changeFile("/settings/settings.json", function(file){
 					constructorSitePanelSettingsMenu(block, closeBlock, openBlock, addedCloseFunction, file);
 					openBlock(elem);
-				});				
-			}); 				
+				});
+			});
 		},
 		settings: {
 			class: "clear settings_button",
@@ -144,7 +144,7 @@ function openMenu(){
 		/*
 			RIGHT MENU
 		*/
-		block.appendChild([			
+		block.appendChild([
 			UI.createElem({
 				tag: "h2",
 				class: "header_block",
@@ -163,7 +163,7 @@ function openMenu(){
 						}
 					}, function(isSuccess){
 						//notification();
-					});						
+					});
 				},
 				value: data.use_site_panel,
 				content: "Использовать панель быстрого доступа"
@@ -175,10 +175,10 @@ function openMenu(){
 						data = file;
 						saveFile(file);
 						if(value) document.getElementById("site_panel").classList.add("substrate");
-						else document.getElementById("site_panel").classList.remove("substrate");					
+						else document.getElementById("site_panel").classList.remove("substrate");
 					}, function(isSuccess){
 						//notification();
-					});						
+					});
 				},
 				value: data.site_panel_substrate,
 				content: "Отрисовывать подложку"
@@ -217,7 +217,7 @@ function openMenu(){
 									case 3: site_panel.parentNode.parentNode.style.alignItems = "flex-end"; break;
 								}
 								site_panel.parentNode.classList.remove("hide");
-							});																	
+							});
 						},	function(isSuccess){});
 					}
 				})
@@ -232,10 +232,10 @@ function openMenu(){
 					bgPage.Window.DB.changeFile("/settings/settings.json", function(file, saveFile){
 						file.open_site_panel_start = value;
 						data = file;
-						saveFile(file);						
+						saveFile(file);
 					}, function(isSuccess){
 						//notification();
-					});						
+					});
 				},
 				value: data.open_site_panel_start,
 				content: "Открывать закладки при старте"
@@ -257,8 +257,8 @@ function openMenu(){
 						constructorBackGroundsSettingsMenu(block, closeBlock, openBlock, addedCloseFunction, fileS, fileBG);
 						openBlock(elem);
 					});
-				});				
-			}); 	
+				});
+			});
 		},
 		settings: {
 			class: "clear settings_button",
@@ -318,7 +318,7 @@ function openMenu(){
 			}),
 			UI.createCheckBox({
 				click: function(value){
-					driveDayManager(6, value, false, allDaysSwitcher.value);							
+					driveDayManager(6, value, false, allDaysSwitcher.value);
 				},
 				value: data.background_switching_days[6],
 				content: "Воскресенье"
@@ -336,14 +336,14 @@ function openMenu(){
 				});
 				if(value){
 					for(var i=0; i<7; i++) driveDayManager(i, false, true);
-					driveDayManager(7, value, true);	
+					driveDayManager(7, value, true);
 				}else{
 					daysCheckBoxs.forEach(function(object, i){
 						if(object.value) driveDayManager(i, true, true);
 					});
 					driveDayManager(7, value, true);
 				}
-					
+
 			},
 			value: data.one_setting_for_selected_days,
 			content: "Общие настройки для выбраных дней"
@@ -395,7 +395,7 @@ function openMenu(){
 		/*
 			Настройка дней
 		*/
-		var rightMenu = UI.createElem({class: "settings_rightMenu hide"});		
+		var rightMenu = UI.createElem({class: "settings_rightMenu hide"});
 		daysCheckBoxs.forEach(function(object, i){
 			rightMenu.appendChild(UI.createElem({
 				attr: [{tag: "id", value: "settings_rightMenu_manager_"+i}],
@@ -472,9 +472,9 @@ function openMenu(){
 					let switcher = UI.createSelection({
 						options: ["Случайно", "Конкретно"],
 						value: data[daySettingsName].background_selection,
-						click: function(value){						
+						click: function(value){
 							switch(value){
-								case 0: 
+								case 0:
 									randomConstructor();
 									bgPage.Window.DB.changeFile("/settings/settings.json", function(file, saveFile){
 										file[daySettingsName].background_selection = value;
@@ -486,7 +486,7 @@ function openMenu(){
 									});
 									break;
 								case 1:
-									specificallyConstructor(switcher);								
+									specificallyConstructor(switcher);
 									break;
 							}
 						}
@@ -601,7 +601,7 @@ function openMenu(){
 						}
 					})
 				}));*/
-				gl_dayBlock.appendChild(wraperRandom);					
+				gl_dayBlock.appendChild(wraperRandom);
 				if(settingsConstructor)
 					settingsConstructor.addClass("hide", function(){
 						settingsConstructor.remove();
@@ -609,7 +609,7 @@ function openMenu(){
 						settingsConstructor = wraperRandom;
 					});
 				else settingsConstructor = wraperRandom;
-				
+
 			}
 			function specificallyConstructor(switcher){
 				console.log(switcher)
@@ -627,8 +627,8 @@ function openMenu(){
 				var previewBlurWraper = UI.createElem({
 					class: "preview_blur",
 					style: [
-						(data[daySettingsName].specifically_selection.type == "color")? 
-							("background-color: "+data[daySettingsName].specifically_selection.name) : 
+						(data[daySettingsName].specifically_selection.type == "color")?
+							("background-color: "+data[daySettingsName].specifically_selection.name) :
 							("background-image: url('"+bgPage.Window.DB.get()+"/backgrounds/preview/"+
 								data[daySettingsName].specifically_selection.name+"')")
 					]
@@ -636,8 +636,8 @@ function openMenu(){
 				var previewBlur = UI.createElem({
 					class: "preview",
 					style: [
-						(data[daySettingsName].specifically_selection.type == "color")? 
-							("background-color: "+data[daySettingsName].specifically_selection.name) : 
+						(data[daySettingsName].specifically_selection.type == "color")?
+							("background-color: "+data[daySettingsName].specifically_selection.name) :
 							("background-image: url('"+bgPage.Window.DB.get()+"/backgrounds/preview/"+
 								data[daySettingsName].specifically_selection.name+"')")
 					]
@@ -657,7 +657,7 @@ function openMenu(){
 					setSpecial(true);
 					return;
 				}
-								
+
 				wraperSpec.appendChild(previewBlurWraper);
 				wraperSpec.appendChild(UI.createInfoWrap({
 					text: typeBG,
@@ -676,7 +676,7 @@ function openMenu(){
 					style: ["position: relative;"],
 					elem: previewBlur
 				}));
-				gl_dayBlock.appendChild(wraperSpec);					
+				gl_dayBlock.appendChild(wraperSpec);
 				if(settingsConstructor)
 					settingsConstructor.addClass("hide", function(){
 						settingsConstructor.remove();
@@ -749,7 +749,7 @@ function openMenu(){
 								}
 								data = file;
 								saveFile(file);
-							}, function(isSuccess){								
+							}, function(isSuccess){
 								//bgPage.Window.DB.changeFile("/settings/backgroundsList.json", function(a){console.log(a)});
 								//bgPage.Window.DB.changeFile("/settings/settings.json", function(a){console.log(a)});
 								getBackground(data);
@@ -765,7 +765,7 @@ function openMenu(){
 				var wraperWEB = UI.createElem({
 					class: (!settingsConstructor)? "hide" : ""
 				});
-				gl_dayBlock.appendChild(wraperWEB);					
+				gl_dayBlock.appendChild(wraperWEB);
 				if(settingsConstructor)
 					settingsConstructor.addClass("hide", function(){
 						settingsConstructor.remove();
@@ -775,12 +775,12 @@ function openMenu(){
 				else settingsConstructor = wraperWEB;
 			}
 			if(data[daySettingsName].background_selection) specificallyConstructor(); else randomConstructor();
-			return gl_dayBlock;			
+			return gl_dayBlock;
 		}
 		addedCloseFunction(function(){
 			rightMenu.addClass("hide", function(){
 				rightMenu.remove();
-			});					
+			});
 		});
 	}
 
@@ -794,8 +794,8 @@ function openMenu(){
 				bgPage.Window.DB.changeFile("/settings/settings.json", function(file){
 					constructorMoreMenu(block, closeBlock, openBlock, addedCloseFunction, file);
 					openBlock(elem);
-				});				
-			}); 				
+				});
+			});
 		},
 		settings: {
 			class: "clear settings_button",
@@ -806,9 +806,9 @@ function openMenu(){
 	}));
 
 	function constructorMoreMenu(block, closeBlock, openBlock, addedCloseFunction, data){
-		
+
 		//	RIGHT MENU
-		
+
 		block.appendChild([
 			UI.createElem({
 				tag: "h2",
@@ -822,8 +822,8 @@ function openMenu(){
 						data = file;
 						saveFile(file);
 						if(file.hide_right_menu) document.getElementById("interfaceWraper").className = "";
-						else document.getElementById("interfaceWraper").className = "show_button_panel";	
-					});						
+						else document.getElementById("interfaceWraper").className = "show_button_panel";
+					});
 				},
 				value: data.hide_right_menu,
 				content: "Скрывать кнопки на главном экране"
@@ -838,7 +838,7 @@ function openMenu(){
 						popup({
 							name: "Редактирование имени вкладки",
 							isWide: true,
-							rightCol: (function(){											
+							rightCol: (function(){
 								var col = [
 									UI.createElem({tag: "h2", content: "Имя"}),
 									inputName
@@ -847,7 +847,7 @@ function openMenu(){
 							})(),
 							buttons: {
 								cancel: {click: function(){
-									
+
 								}},
 								ok: {
 									text: "Сохранить",
@@ -880,8 +880,8 @@ function openMenu(){
 						data = file;
 						saveFile(file);
 						if(file.new_theme) document.body.classList.add("theme-new");
-						else document.body.classList.remove("theme-new");	
-					});						
+						else document.body.classList.remove("theme-new");
+					});
 				},
 				value: data.new_theme,
 				content: "Упрощеный интерфейс"
@@ -895,7 +895,7 @@ function openMenu(){
 				click: function(){
 					var inputSpirit = document.createElement("input");
 					inputSpirit.setAttribute("type", "file");
-					inputSpirit.click();													
+					inputSpirit.click();
 					inputSpirit.onchange = function(event){
 						let name = event.srcElement.files[0].name.toLowerCase();
 						if(name.substring(name.length-6) == ".ctbup"){
@@ -923,7 +923,7 @@ function openMenu(){
 								text: "Неизвестный файл. Файлы воcстановления типа '.ctbup'",
 								timeout: 10000
 							})
-						}						
+						}
 					}
 				},
 				settings: {
@@ -933,7 +933,7 @@ function openMenu(){
 			}),
 			UI.createButton({
 				click: function(){
-					let btns = null;						
+					let btns = null;
 					let swSite = UI.createSwitcher({
 						click: function(value){
 							btns.ok.distabled(!(value || swSettings.value /*|| swBG.value*/));
@@ -977,9 +977,9 @@ function openMenu(){
 											a.href = Window.dataOfTab.namespace+pathFile;
 											a.download = "";
 											a.click();
-										});											
+										});
 										console.log(bcupFile);
-									});									
+									});
 								}
 							}
 						}
@@ -1004,8 +1004,8 @@ function openMenu(){
 						data = file;
 						saveFile(file);
 						if(file.dark_theme) document.body.classList.add("night-theme");
-						else document.body.classList.remove("night-theme");	
-					});						
+						else document.body.classList.remove("night-theme");
+					});
 				},
 				value: data.dark_theme,
 				content: "Использовать ночную тему"
@@ -1017,8 +1017,8 @@ function openMenu(){
 						data = file;
 						saveFile(file);
 						if(file.low_brightness_bg) document.getElementById("backgroundWraper").classList.add("low-brightness");
-						else document.getElementById("backgroundWraper").classList.remove("low-brightness");	
-					});						
+						else document.getElementById("backgroundWraper").classList.remove("low-brightness");
+					});
 				},
 				value: data.low_brightness_bg,
 				content: "Понизить яркость фона"
@@ -1120,7 +1120,7 @@ function openMenu(){
 					})
 				]);
 				openBlock(elem);
-			}); 	
+			});
 		},
 		settings: {
 			class: "clear settings_button",
@@ -1132,51 +1132,46 @@ function openMenu(){
 	/*--------------------------------------------------------------------------------------*/
 	/*-------------------------------НОВОСТНОЙ БЛОК-----------------------------------------*/
 	/*--------------------------------------------------------------------------------------*/
-	if(localStorage.getItem("advertising_post"))
-		mainCntr.appendChild(UI.createElem({
-			class: "adv-block",
-			attr: [{tag: "id", value: "adv-block"}],
-			content: [
-				UI.createButton({
-					settings:{
-						content: "Больше не показывать это сообщение",
-						class: "clear adv-close-btn"
-					},
-					click: function(){
-						localStorage.setItem("blocked_advertising_id", JSON.parse(localStorage.getItem("advertising_post")).advId);
-						localStorage.removeItem("advertising_post");
-						document.getElementById("adv-block").remove();
-					}
-				}),
-				UI.createElem({
-					class: "adv-content",
-					content: (function(){
-						var wrp = JSON.parse(localStorage.getItem("advertising_post"));
-						wrp = toDoc(wrp);
-						return wrp;
+	// if(localStorage.getItem("advertising_post"))
+	mainCntr.appendChild(UI.createElem({
+		class: "adv-block",
+		attr: [{tag: "id", value: "adv-block"}],
+		content: [
+			/* UI.createButton({
+				settings:{
+					content: "Больше не показывать это сообщение",
+					class: "clear adv-close-btn"
+				},
+				click: function(){
+					localStorage.setItem("blocked_advertising_id", JSON.parse(localStorage.getItem("advertising_post")).advId);
+					localStorage.removeItem("advertising_post");
+					document.getElementById("adv-block").remove();
+				}
+			}), */
+			UI.createElem({
+				class: "adv-content",
+				content: [
+					UI.createElem({
+						class: "adv-h1",
+						content: "Привет! Есть новости"
 
-						function toDoc(elem){
-							console.log(elem);
-							if(elem.content && typeof elem.content == "object"){
-								if(elem.content.forEach) elem.content = elem.content.map(el => toDoc(el));
-								else elem.content = toDoc(elem.content);
-							}
-							switch (elem.tag) {
-								case "div":
-									elem = UI.createElem(elem);
-									break;
-								case "btn":
-									elem.click = new Function(elem.click);
-									elem = UI.createButton(elem);
-									break;
-							}
-							return elem;
+					}),
+					UI.createElem({
+						class: "adv-h2",
+						content: "Мы уже больше полугода переписываем расширение с нуля, уже сейчас можно начать использовать новое расширение."
+
+					}),
+					UI.createButton({
+						click: () => { window.open("https://rigami.io/migrate-from-clock-tab", "_blank"); },
+						settings: {
+							class: "adv-btn",
+							content: "Узнать подробнее",
 						}
-					})()
-
-				})
-			]
-		}));
+					}),
+				]
+			})
+		]
+	}));
 
 	function expandSmallMenu(button, callback){
 		if(!!now_menu_expand) now_menu_expand.classList.remove("open-block");
@@ -1185,11 +1180,11 @@ function openMenu(){
 			now_menu_expand.block.close(now_menu_expand);
 			if(now_menu_expand == button) return;
 		}
-		
+
 		var block = UI.createElem({
 			tag: "div",
 			class: "settings_small_block"
-		});		
+		});
 
 		function close(buttonParent){
 			menu_block_is_colsed = false;
@@ -1206,11 +1201,11 @@ function openMenu(){
 				}, 300);
 			}, 50);
 		}
-		block.close = close;	
+		block.close = close;
 		button.block = block;
 		now_menu_expand = button;
 		menu_block_is_colsed = false;
-		callback(block, close, function(butElem){		
+		callback(block, close, function(butElem){
 			butElem.classList.add("open-block");
 			button.parentNode.insertBefore(block.element, button.nextSibling);
 			var heightBlock = block.element.clientHeight;
@@ -1219,7 +1214,7 @@ function openMenu(){
 					block.addClass("expand");
 					menu_block_is_colsed = true;
 				});
-			}, 50);			
+			}, 50);
 		},
 		function(addCloseFunc){
 			block.addedCloseFunction = addCloseFunc;
@@ -1231,7 +1226,7 @@ function openMenu(){
 	setTimeout(function(){
 		body.removeClass(["hide", "zeroWidth"]);
 
-	}, 200);	
+	}, 200);
 }
 
 function specialCatalogBG(callback){
@@ -1253,13 +1248,13 @@ function specialCatalogBG(callback){
 								callback(false);
 								BG_manager.addClass("hide", function(){
 									BG_manager.remove();
-									Window.dataOfTab.widthPreviewContent = null;									
-								}, 250);								
+									Window.dataOfTab.widthPreviewContent = null;
+								}, 250);
 							},
 							settings: {
 								class: "clear close_manager"
 							}
-						})						
+						})
 					]
 				}), content
 			]
@@ -1267,7 +1262,7 @@ function specialCatalogBG(callback){
 	});
 
 	var catalog = UI.createElem({class: "select_catalog"});
-	var catalogFiles = UI.createElem({class: "centralize-catalog"});	
+	var catalogFiles = UI.createElem({class: "centralize-catalog"});
 	content.appendChild(catalog);
 	catalog.appendChild([
 		UI.createElem({
@@ -1285,7 +1280,7 @@ function specialCatalogBG(callback){
 							callback(bgNew);
 							BG_manager.addClass("hide", function(){
 								BG_manager.remove();
-								Window.dataOfTab.widthPreviewContent = null;									
+								Window.dataOfTab.widthPreviewContent = null;
 							}, 250);
 						}, true)}
 					})
@@ -1313,7 +1308,7 @@ function specialCatalogBG(callback){
 				}));
 				file.video.forEach(function(object, i){
 					catalogFiles.appendChild(constructorPreview(object.name, "video", i));
-				});			
+				});
 				if(file.image.length != 0) catalogFiles.appendChild(UI.createElem({
 					class: "charter",
 					content: "Изображения"
@@ -1343,7 +1338,7 @@ function specialCatalogBG(callback){
 						img.src = url+name;
 						img.onload = function(){
 							preview.removeClass("hide");
-						}					
+						}
 					}
 					var preview = UI.createButton({
 						settings: {
@@ -1361,8 +1356,8 @@ function specialCatalogBG(callback){
 					return preview;
 				})();
 			}
-		});		
-	}					
+		});
+	}
 
 	globalBody.appendChild(BG_manager);
 	Window.dataOfTab.widthPreviewContent = BG_manager.element;
@@ -1419,7 +1414,7 @@ function BGManagerConstructor(openPage){
 								BG_manager.addClass("hide", function(){
 									BG_manager.remove();
 									Window.dataOfTab.widthPreviewContent = null;
-								}, 250);								
+								}, 250);
 							},
 							settings: {
 								class: "clear close_manager"
@@ -1440,7 +1435,7 @@ function BGManagerConstructor(openPage){
 		if(!bgList){
 			bgPage.Window.DB.changeFile("/settings/backgroundsList.json", function(a){webCatalog(callback, a.download)});
 			return;
-		}		
+		}
 		content.clearContent();
 		var pre_cont = UI.createElem({class: "web_catalog centralize-catalog"});
 		pre_cont.appendChild(UI.createElem({
@@ -1454,29 +1449,29 @@ function BGManagerConstructor(openPage){
 		}));
 		pre_cont_color.appendChild((function(){
 			return [
-				"#ff8c00", 
-				"#e81123", 
-				"#d13438", 
+				"#ff8c00",
+				"#e81123",
+				"#d13438",
 				"#c30052",
-				"#bf0077", 
-				"#9a0089", 
-				"#881798", 
-				"#744da9", 
-				"#10893e", 
-				"#107c10", 
-				"#018574", 
-				"#2d7d9a", 
-				"#0063b1", 
-				"#6b69d6", 
-				"#8e8cd8", 
-				"#8764b8", 
-				"#038387", 				 
-				"#486860", 
-				"#525e54", 
-				"#7e735f", 
-				"#4c4a48", 
-				"#515c6b", 
-				"#4a5459", 
+				"#bf0077",
+				"#9a0089",
+				"#881798",
+				"#744da9",
+				"#10893e",
+				"#107c10",
+				"#018574",
+				"#2d7d9a",
+				"#0063b1",
+				"#6b69d6",
+				"#8e8cd8",
+				"#8764b8",
+				"#038387",
+				"#486860",
+				"#525e54",
+				"#7e735f",
+				"#4c4a48",
+				"#515c6b",
+				"#4a5459",
 				"#000000"
 			].map(function(color){
 				var isDownload = bgList.find(elem => (elem == "color_"+color));
@@ -1498,8 +1493,8 @@ function BGManagerConstructor(openPage){
 							notification({text: "Цвет добавлен в библиотеку"});
 							dwnButton.element.onclick = null;
 							dwnButton.setAttribute("title", "Фон добавлен");
-							preview.addClass("download");														
-						});	
+							preview.addClass("download");
+						});
 					}
 				});
 				var preview = UI.createElem({
@@ -1552,10 +1547,10 @@ function BGManagerConstructor(openPage){
 																notification({text: "Цвет добавлен в библиотеку"});
 																dwnButton.element.onclick = null;
 																dwnButton.setAttribute("title", "Фон добавлен");
-																preview.addClass("download");														
-															});		
+																preview.addClass("download");
+															});
 														}
-													}),					
+													}),
 													UI.createButton({
 														settings: {class: "false", content: "Закрыть", style: ["margin-right: 15px;"]},
 														click: function(){
@@ -1564,8 +1559,8 @@ function BGManagerConstructor(openPage){
 															})
 														}
 													})
-												]})	
-										]})	
+												]})
+										]})
 									]
 								});
 
@@ -1630,10 +1625,10 @@ function BGManagerConstructor(openPage){
 														urlFile: "color_"+color
 													}, function(){
 														notification({text: "Цвет добавлен в библиотеку"});
-														preview.addClass("download");														
-													});		
+														preview.addClass("download");
+													});
 												}
-											}),					
+											}),
 											UI.createButton({
 												settings: {class: "false", content: "Закрыть", style: ["margin-right: 15px;"]},
 												click: function(){
@@ -1642,8 +1637,8 @@ function BGManagerConstructor(openPage){
 													})
 												}
 											})
-										]})	
-								]})	
+										]})
+								]})
 							]
 						});
 
@@ -1653,7 +1648,7 @@ function BGManagerConstructor(openPage){
 						}, 50);
 					}
 				});
-				if(bgList.find(elem => (elem == "color_"+color))) preview.addClass("download");	*/				
+				if(bgList.find(elem => (elem == "color_"+color))) preview.addClass("download");	*/
 				return preview;
 			});
 		})());
@@ -1691,7 +1686,7 @@ function BGManagerConstructor(openPage){
 					click: function(){
 						this.isSelect = !this.isSelect;
 						if(this.isSelect){
-							this.settings.object.addClass("select");							
+							this.settings.object.addClass("select");
 							searchTags = ":"+curVall.id+":"+searchTags;
 						}else{
 							this.settings.object.removeClass("select");
@@ -1705,7 +1700,7 @@ function BGManagerConstructor(openPage){
 						content: curVall.tag
 					}
 				});
-			});	
+			});
 			//res[res.length]=;
 			pre_cont.appendChild(UI.createElem({
 				class: "tag_list",
@@ -1747,7 +1742,7 @@ function BGManagerConstructor(openPage){
 						content: "Неудалось загрузить данные, попробуйте позже"
 					}));
 					return;
-				}			
+				}
 				JSON.parse(result).forEach(function(elemInCatalog){
 					elemInCatalog.isDownload = bgList.find(elem => (elem == "http://"+elemInCatalog.url+elemInCatalog.name+"."+elemInCatalog.type));
 					var dwnButton = UI.createButton({
@@ -1784,12 +1779,12 @@ function BGManagerConstructor(openPage){
 															nameBG: elemInCatalog.name
 														},function(res){
 															//console.log(res)
-														});														
+														});
 													});
 													notic.innerContent("Загрузка завершена");
 													setTimeout(function(){
 														dead();
-													}, 1000);													
+													}, 1000);
 												},
 												{blob: true, type: "GET"},
 												function(val){
@@ -1801,7 +1796,7 @@ function BGManagerConstructor(openPage){
 											notic.innerContent("Загрузка фона "+Math.ceil(val*0.2)+"%");
 									});
 								}
-							});	
+							});
 						}
 					});
 					var preview = UI.createElem({
@@ -1835,14 +1830,14 @@ function BGManagerConstructor(openPage){
 								content: dwnButton
 							})
 						]
-					})					
+					})
 					var image = new Image();
 					image.src = "http://"+elemInCatalog.url+"preview/"+elemInCatalog.name+".jpg";
 					image.onload = function(){
 						preview.changeStyle([{tag: "backgroundImage", value: "url("+image.src+")"}]);
 						preview.removeClass("hide");
 					}
-					preview.data = elemInCatalog;			
+					preview.data = elemInCatalog;
 					previewWraper.appendChild(preview);
 				});
 			});
@@ -1882,7 +1877,7 @@ function BGManagerConstructor(openPage){
 											spinner.remove();
 											let ths = this;
 											this.classList.remove("display_none");
-											setTimeout(function(){ths.classList.remove("hide");}, 300);						
+											setTimeout(function(){ths.classList.remove("hide");}, 300);
 										},
 										onerror: function(){
 											console.error("ERROR LOAD IMAGE");
@@ -1917,7 +1912,7 @@ function BGManagerConstructor(openPage){
 											spinner.remove();
 											let ths = this;
 											this.classList.remove("display_none");
-											setTimeout(function(){ths.classList.remove("hide");}, 300);											
+											setTimeout(function(){ths.classList.remove("hide");}, 300);
 										},
 										onerror: function(){
 											console.error("ERROR LOAD VIDEO");
@@ -1940,7 +1935,7 @@ function BGManagerConstructor(openPage){
 						content: "Автор: "+info.author+"<br><br>"+
 								 info.info+"<br><br>"+
 								 "Разрешение: "+info.resolution
-						
+
 					}),
 					UI.createButton({
 						settings: {
@@ -1970,12 +1965,12 @@ function BGManagerConstructor(openPage){
 														urlFile: "http://"+info.url+info.name+"."+info.type
 													}, function(){
 														notification({text: "Фон успешно добавлен"});
-														callback();																
+														callback();
 													});
 													notic.innerContent("Загрузка завершена");
 													setTimeout(function(){
 														dead();
-													}, 1000);													
+													}, 1000);
 												},
 												{blob: true, type: "GET"},
 												function(val){
@@ -1987,9 +1982,9 @@ function BGManagerConstructor(openPage){
 											notic.innerContent("Загрузка фона "+Math.ceil(val*0.2)+"%");
 									});
 								}
-							});							
+							});
 						}
-					}),					
+					}),
 					UI.createButton({
 						settings: {class: "false", content: "Закрыть", style: ["margin-right: 15px;"]},
 						click: function(){
@@ -1998,7 +1993,7 @@ function BGManagerConstructor(openPage){
 							})
 						}
 					})
-				]})		
+				]})
 			]
 		});
 
@@ -2009,9 +2004,9 @@ function BGManagerConstructor(openPage){
 	}
 
 	function localCatalog(){
-		content.clearContent();		
+		content.clearContent();
 		var catalog = UI.createElem({class: "local_catalog"});
-		content.appendChild(catalog); 
+		content.appendChild(catalog);
 		var catalogFiles = UI.createElem({class: "centralize-catalog"});
 		catalog.appendChild([
 			UI.createElem({
@@ -2048,7 +2043,7 @@ function BGManagerConstructor(openPage){
 			}));
 			file.video.forEach(function(object, i){
 				catalogFiles.appendChild(constructorPreview(object, "video", i));
-			});			
+			});
 			if(file.image.length != 0) catalogFiles.appendChild(UI.createElem({
 				class: "charter",
 				content: "Изображения"
@@ -2104,14 +2099,14 @@ function BGManagerConstructor(openPage){
 															file.download.splice(i, 1);
 														}
 													});
-													save(file);											
+													save(file);
 												}, function(isSuccess){
 													if(isSuccess) notification({text: "Фон успешно удален"});
 													else notification({text: "Ошибка удаления фона"});
 													preview.remove();//localCatalog();
 												});
 											});
-										});										
+										});
 									else
 										bgPage.Window.DB.changeFile("/settings/backgroundsList.json", function(file, save){
 											file[type].splice(number, 1);
@@ -2120,7 +2115,7 @@ function BGManagerConstructor(openPage){
 													file.download.splice(i, 1);
 												}
 											});
-											save(file);											
+											save(file);
 										}, function(isSuccess){
 											if(isSuccess) notification({text: "Фон успешно удален"});
 											else notification({text: "Ошибка удаления фона"});
@@ -2133,7 +2128,7 @@ function BGManagerConstructor(openPage){
 					return preview;
 				})();
 			}
-		});						
+		});
 	}
 
 	globalBody.appendChild(BG_manager);
@@ -2174,7 +2169,7 @@ function notification(info){
 				notic.addClass("hide", function(){notic.remove();})
 			}
 		}, info.timeout? info.timeout : 3000);
-	}, 50);	
+	}, 50);
 }
 
 function closeMenu(callback){
@@ -2188,7 +2183,7 @@ function closeMenu(callback){
 		body.addClass("zeroWidth");
 		if(callback) callback();
 		//document.getElementById("settings_zone").classList.remove("openMenu");
-	});	
+	});
 }
 
 function getPreviewFile(file, callback){
@@ -2205,7 +2200,7 @@ function getPreviewFile(file, callback){
 		video.setAttribute("muted","");
 
 		video.onloadedmetadata = function(){
-			video.currentTime = video.duration/2;			
+			video.currentTime = video.duration/2;
 			video.addEventListener('play', function(){
 				canvas.width = video.videoWidth;
 				canvas.height = video.videoHeight;
@@ -2214,15 +2209,15 @@ function getPreviewFile(file, callback){
 		     	postprocessing(canvas);
 		    },false);
 		}
-		
+
 	}else{
 		var img = document.createElement("img");
 		img.setAttribute("src", URL.createObjectURL(file));
 
-		img.onload = function(){			
+		img.onload = function(){
 			canvas.width = img.width;
 			canvas.height = img.height;
-			ctx.drawImage(img, 0, 0);			
+			ctx.drawImage(img, 0, 0);
 			postprocessing(canvas);
 		}
 	}
@@ -2249,7 +2244,7 @@ function getPreviewFile(file, callback){
 		}else{
 			canvasResize.width = 141/cnvs.height*cnvs.width;
 			canvasResize.height = 141;
-		}		
+		}
 		ctxResize.drawImage(cnvs, 0, 0, cnvs.width, cnvs.height, 0, 0, canvasResize.width, canvasResize.height);
 		oc.width  = 250;
 		oc.height = 141;
@@ -2257,7 +2252,7 @@ function getPreviewFile(file, callback){
 			octx.drawImage(canvasResize, 0, -(canvasResize.height-141)*0.5, canvasResize.width, canvasResize.height);
 		}else{
 			octx.drawImage(canvasResize, -(canvasResize.width-250)*0.5, 0, canvasResize.width, canvasResize.height);
-		}		
+		}
 		oc.toBlob(function(blob){
 			callback(blob);
 		}, "image/jpeg", 1);
@@ -2270,8 +2265,8 @@ function localCatalogAddedLocalFile(localCatalog, isReturnFile){
 	inputSpirit.setAttribute("type", "file");
 	inputSpirit.setAttribute("multiple", "true");
 	inputSpirit.setAttribute("accept", "video/*,image/*");
-	inputSpirit.click();													
-	inputSpirit.onchange = function(event){	
+	inputSpirit.click();
+	inputSpirit.onchange = function(event){
 		//console.log(event.srcElement.files)
 		if(event.srcElement.files.length > 50){
 			notification({
@@ -2280,8 +2275,8 @@ function localCatalogAddedLocalFile(localCatalog, isReturnFile){
 				timeout: 10000
 			})
 			return;
-		}		
-		localCatalogAddedLocalFileQueue(event.srcElement.files, 0, localCatalog, isReturnFile);		
+		}
+		localCatalogAddedLocalFileQueue(event.srcElement.files, 0, localCatalog, isReturnFile);
 	}
 }
 function localCatalogAddedLocalFileQueue(fileList, numb, localCatalog, isReturnFile){
@@ -2343,7 +2338,7 @@ function localCatalogAddedLocalFileQueue(fileList, numb, localCatalog, isReturnF
 						style: ["font-size: 20px;", "text-align: center;", "color: white;"],
 						content: "Фон загружается"
 					})
-				]);			
+				]);
 				form.remove();
 			});
 			bgPage.saveBackgroundFileInSystem(fileSave, function(numbFile){
@@ -2357,7 +2352,7 @@ function localCatalogAddedLocalFileQueue(fileList, numb, localCatalog, isReturnF
 						fileSave.number = numbFile-1;
 						localCatalog(fileSave);
 					}
-				});																
+				});
 			});
 		}
 	});
@@ -2390,7 +2385,7 @@ function localCatalogAddedLocalFileQueue(fileList, numb, localCatalog, isReturnF
 							   				: "видео")+"<br>"+
 							   "формат - "+fileSave.file.type.substring(fileSave.file.type.indexOf("/")+1)
 						})
-						
+
 					}),
 					UI.createCheckBox({
 						settings: {
@@ -2445,7 +2440,7 @@ function localCatalogAddedURL(localCatalog){
 			style: ["width: 100%;"],
 			special: {
 				oninput: function(){
-					bgPage.Window.DB.sendRequest(inputURL.element.value, {}, function(resultBG){					
+					bgPage.Window.DB.sendRequest(inputURL.element.value, {}, function(resultBG){
 						//console.log(/*URL.createObjectURL(*/new File([resultBG], "test.jpg"))//)
 					}, {blob: true, type: "GET"}, function(val){/*console.log(val)*/});
 				}
@@ -2457,19 +2452,19 @@ function localCatalogAddedURL(localCatalog){
 		class: "manager_window hide",
 		content: UI.createElem({
 			class: "manager_wraper_content addURlManager",
-			content: [				
+			content: [
 				UI.createElem({
 					class: "ahead",
 					content: [
 						UI.createElem({
 							tag: "h1",
 							content: "Добавление фона по URL"
-						}),						
+						}),
 						UI.createButton({
 							click: function(){
 								noteGWraper.addClass("hide", function(){
-									noteGWraper.remove();									
-								}, 250);								
+									noteGWraper.remove();
+								}, 250);
 							},
 							settings: {
 								class: "clear close_manager",
@@ -2485,9 +2480,9 @@ function localCatalogAddedURL(localCatalog){
 					}),
 					inputURL,
 					UI.createElem()
-				]})				
+				]})
 			]
-		})		
+		})
 	});
 
 	globalBody.appendChild(noteGWraper);
@@ -2497,7 +2492,7 @@ function localCatalogAddedURL(localCatalog){
 	}, 50);
 }
 function localCatalogAddedIFRAME(localCatalog){
-	
+
 }
 function moveWatch(callback, oldPosition){
 	var saveChange_wraper = UI.createElem({class: "save_change_move_watch hide"});
@@ -2562,16 +2557,16 @@ function moveWatch(callback, oldPosition){
 					content: "Сохранить изменения"
 				},
 				click: function(){
-					document.getElementById("clock-block").onmousedown = window.onmousemove = window.onmousedown = window.onmouseup = undefined;				
+					document.getElementById("clock-block").onmousedown = window.onmousemove = window.onmousedown = window.onmouseup = undefined;
 					removeEventListener('keydown', keyListenerDown);
-					removeEventListener('keyup', keyListenerUp);	
+					removeEventListener('keyup', keyListenerUp);
 					callback(position);
 					document.getElementById("clock-block").classList.remove("moveWatch");
 					document.getElementById("bodyWraper").classList.remove("interfaceOff");
 					saveChange_wraper.addClass("hide", function(){
 						document.getElementById("settings_zone").classList.remove("hide");
 						saveChange_wraper.remove();
-					});					
+					});
 				}
 			})
 		]
@@ -2595,10 +2590,10 @@ function moveWatch(callback, oldPosition){
 		let width = node.offsetWidth;
 		let height = node.offsetHeight;
 		var Y,X;
-		freeze = {x: false, y:false}	
+		freeze = {x: false, y:false}
 		let widthScreen = document.documentElement.clientWidth;
 		let heightScreen = document.documentElement.clientHeight;
-		//lastEvent = null;	
+		//lastEvent = null;
 		let startPos = {
 			x: startEvent.clientX,
 			y: startEvent.clientY,
@@ -2613,7 +2608,7 @@ function moveWatch(callback, oldPosition){
 		node.style.position = "absolute";
 
 		window.onmousemove = window.onmousedown =  function(event){
-			if(!isGrab) return;		
+			if(!isGrab) return;
 			if(event) lastEvent = event;
 			if(event){
 				X = event.clientX-startPos.offsetX;
@@ -2646,7 +2641,7 @@ function moveWatch(callback, oldPosition){
 			position.left = (isLeft)? X/widthScreen*100 : null;
 			position.bottom = (isTop)? null : (heightScreen-Y-height)/heightScreen*100;
 			position.right = (isLeft)? null : (widthScreen-X-width)/widthScreen*100;
-			CLOCK.setPosition(position);		
+			CLOCK.setPosition(position);
 		}
 	}
 
@@ -2717,9 +2712,9 @@ function drawSitePanel(fastOpen){
 	drawAllSites();
 	var favGroup;
 	var favoritesWraper;
-	function drawAllSites(endDrawCallback){	
+	function drawAllSites(endDrawCallback){
 		bgPage.Window.DB.changeFile("/settings/sitesList.json", function(file){
-			site_wrap.clearContent();		
+			site_wrap.clearContent();
 			favGroup = UI.createElem({
 				style: ["padding-top: 20px;", "width: 648px;", "margin: auto;", "font-size: 0;", "margin-bottom: 20px;"]
 			});
@@ -2808,7 +2803,7 @@ function drawSitePanel(fastOpen){
 												});
 											}
 										}
-									})	
+									})
 								]
 							})
 						],
@@ -2827,7 +2822,7 @@ function drawSitePanel(fastOpen){
 									if(Math.sqrt(x+y)>12){
 										if(!Window.dataOfTab.markGrabIsActive) return;
 										obj.isMove = true;
-										window.onmousemove = null;										
+										window.onmousemove = null;
 										GrabAndPush(obj, mark, eventMove, function(endDraw){
 											drawAllSites(endDraw);
 											drawFavPanel();
@@ -2858,13 +2853,13 @@ function drawSitePanel(fastOpen){
 						content: "Вы пока еще не добавили ни одну закладку"
 					})
 				}));
-			}	
+			}
 			file.all.forEach(function(obj, i){
-				let wraper = UI.createElem({class: "mark_wraper"});				
+				let wraper = UI.createElem({class: "mark_wraper"});
 				var headerGroup = UI.createElem({
 					style: ["width: 648px;", "margin: auto;", "font-size: 0;"],
 					content: [
-						UI.createElem({content: [						
+						UI.createElem({content: [
 							UI.createButton({
 								settings: {
 									class: "clear remove_site_group",
@@ -2881,7 +2876,7 @@ function drawSitePanel(fastOpen){
 										});
 									}
 								}
-							}),							
+							}),
 							UI.createButton({
 								settings: {
 									class: "clear edit_site_group",
@@ -2898,7 +2893,7 @@ function drawSitePanel(fastOpen){
 									popup({
 										name: "Редактирование группы",
 										isWide: true,
-										rightCol: (function(){											
+										rightCol: (function(){
 											var col = [
 												UI.createElem({tag: "h2", content: "Название"}),
 												inputName,
@@ -2983,7 +2978,7 @@ function drawSitePanel(fastOpen){
 			if(endDrawCallback) endDrawCallback();
 		});
 	}
-	
+
 
 	setTimeout(function(){
 		if(!fastOpen) site_wrap.removeClass("hide");
@@ -3040,7 +3035,7 @@ function drawSitePanel(fastOpen){
 								if(Math.sqrt(x+y)>12){
 									if(!Window.dataOfTab.markGrabIsActive) return;
 									obj.isMove = true;
-									window.onmousemove = null;					
+									window.onmousemove = null;
 									GrabAndPush(obj, mark, eventMove, function(endDraw){
 										drawAllSites(endDraw);
 										drawFavPanel();
@@ -3078,7 +3073,7 @@ function drawSitePanel(fastOpen){
 						}, function(){
 							drawAllSites();
 							drawFavPanel();
-						});	
+						});
 					}
 				}),
 				UI.createButton({
@@ -3090,7 +3085,7 @@ function drawSitePanel(fastOpen){
 						editMarkActivity(obj, function(){
 							drawAllSites();
 						});
-						
+
 					}
 				}),
 				UI.createButton({
@@ -3110,14 +3105,14 @@ function drawSitePanel(fastOpen){
 							});
 						}
 					}
-				})				
+				})
 			]
 		})
 		return mark;
 	};
 }
 
-function AddSite(list, callback){	
+function AddSite(list, callback){
 	//console.log(callback)
 	//console.log("NEW SITE ADD")
 	Window.dataOfTab.sitePanelIsLooked = true;
@@ -3162,9 +3157,9 @@ function AddSite(list, callback){
 									: "/icons/"+name_icon,
 							name: (saveData.name.element.value),
 							url: saveData.url.element.value,
-							substring: (saveData.colorfull_sub.value)? 
-											((saveData.preview.images[saveData.preview.select].baseColor != null)? 
-													saveData.preview.images[saveData.preview.select].baseColor 
+							substring: (saveData.colorfull_sub.value)?
+											((saveData.preview.images[saveData.preview.select].baseColor != null)?
+													saveData.preview.images[saveData.preview.select].baseColor
 													 : saveData.preview.baseColor)
 										: null
 						});
@@ -3181,7 +3176,7 @@ function AddSite(list, callback){
 										});
 										return;
 									}
-									//alert("FILE SAVE");														
+									//alert("FILE SAVE");
 									console.log(file)
 									save(file);
 								});
@@ -3200,10 +3195,10 @@ function AddSite(list, callback){
 					saveData.list.isActive = true;
 				},
 				onmouseup: function(){
-					saveData.list.isActive = false;					
+					saveData.list.isActive = false;
 					saveData.list.addClass("hide");
 				}
-			}	
+			}
 		}),
 		name: UI.createInput({
 			settings: {
@@ -3220,7 +3215,7 @@ function AddSite(list, callback){
 							prw.setName(newName)
 						});
 					}
-				}			
+				}
 			}
 		}),
 		url: UI.createInput({
@@ -3236,7 +3231,7 @@ function AddSite(list, callback){
 					onblur: function(){
 						if(!saveData.list.isActive) saveData.list.addClass("hide");
 					}
-				}			
+				}
 			}
 		}),
 		colorfull_sub: UI.createSwitcher({
@@ -3247,7 +3242,7 @@ function AddSite(list, callback){
 						prw.setBaseColor((prw.baseColor != null)? prw.baseColor : saveData.preview.baseColor);
 					else
 						prw.setBaseColor(null);
-				});				
+				});
 			},
 			value: false,
 			content: "Фон основным цветом"
@@ -3289,8 +3284,8 @@ function AddSite(list, callback){
 							options: list,
 							value: saveData.group,
 							click: function(value, elem){
-								if(value == list.length-1) newGroup(list, elem, saveData);									
-								else saveData.group = value;					
+								if(value == list.length-1) newGroup(list, elem, saveData);
+								else saveData.group = value;
 							},
 							click_alw: function(value, elem){
 								if(list.length == 1) newGroup(list, elem, saveData);
@@ -3335,10 +3330,10 @@ function AddSite(list, callback){
 				console.log(elem)
 				list.pop();
 				list.push(res);
-				list.push("Создать новую группу");	
-				elem.setOptions(list);	
-				elem.setValue(saveData.group);	
-				//callback();								
+				list.push("Создать новую группу");
+				elem.setOptions(list);
+				elem.setValue(saveData.group);
+				//callback();
 			});
 		},function(){
 			elem.setValue(saveData.group);
@@ -3418,7 +3413,7 @@ function popup(settings, callback){
 									}
 								})
 							];
-							if(settings.buttons.other){							
+							if(settings.buttons.other){
 								settings.buttons.other.forEach(function(but){
 									if(!but.text) return;
 									if(but.tag){
@@ -3460,7 +3455,7 @@ function popup(settings, callback){
 						})()
 					}));
 					return content;
-				})()				
+				})()
 			})
 		]
 	});
@@ -3486,7 +3481,7 @@ function GrabAndPush(markData, grabMark, clickEvent, callback, favPanel){
 			tag: "top",
 			value: h + document.getElementById("marks_search_wraper").scrollTop+"px"
 		}], updateGroupsRects);
-	});			
+	});
 	Window.dataOfTab.body.classList.add("all-marks-hover-disabled");
 	Window.dataOfTab.sitePanelIsLooked = true;
 	var sPstn = {
@@ -3537,7 +3532,7 @@ function GrabAndPush(markData, grabMark, clickEvent, callback, favPanel){
 		],
 		content: [
 			ghost.iconBG,
-			UI.createElem({tag: "h1", content: (markData.сutName)? markData.сutName : markData.name})			
+			UI.createElem({tag: "h1", content: (markData.сutName)? markData.сutName : markData.name})
 		]
 	});
 	ghost.rippleMask = UI.createElem({
@@ -3626,7 +3621,7 @@ function GrabAndPush(markData, grabMark, clickEvent, callback, favPanel){
 				//console.log(event.clientX - groupsRects[groupHover].left +" | "+ marksArr[0].rect.left)
 				if(mark != null) offsetMarks(mark)
 			}
-	}		
+	}
 		//updateGroupsRects();
 	}
 	function onmouseup(event){
@@ -3668,27 +3663,27 @@ function GrabAndPush(markData, grabMark, clickEvent, callback, favPanel){
 		blockMove = true;
 		if(blockMoveTimer) clearTimeout(blockMoveTimer);
 		blockMoveTimer = setTimeout(function(){
-			blockMove = false;			
+			blockMove = false;
 			globalOffset = document.getElementById("marks_search_wraper").scrollTop;
 			updateGroupsRects();
 			if(lastMoveEvent) onmousemove(lastMoveEvent);
 		}, 300);
 	}
-	
-	function markUnderMouse(mousePos){		
+
+	function markUnderMouse(mousePos){
 		for(var i = 0; i<marksRects.length; i++){
 			if((marksRects[i].top-10 < mousePos.y)&&(marksRects[i].top+marksRects[i].height+10 > mousePos.y)
-				&&(marksRects[i].left-10 < mousePos.x)&&(marksRects[i].left+marksRects[i].width+10 > mousePos.x)){					
+				&&(marksRects[i].left-10 < mousePos.x)&&(marksRects[i].left+marksRects[i].width+10 > mousePos.x)){
 					return i;
 			}
 		}
 		return null;
 	}
-	function groupUnderMouse(mousePos){		
+	function groupUnderMouse(mousePos){
 		for(var i = 0; i<groupsRects.length; i++){
 			if(!groupsRects[i]) continue;
 			if((groupsRects[i].top-10 < mousePos.y)&&(groupsRects[i].bottom+10 > mousePos.y)
-				&&(groupsRects[i].left-10 < mousePos.x)&&(groupsRects[i].right+10 > mousePos.x)){					
+				&&(groupsRects[i].left-10 < mousePos.x)&&(groupsRects[i].right+10 > mousePos.x)){
 					return i;
 			}
 		}
@@ -3712,7 +3707,7 @@ function GrabAndPush(markData, grabMark, clickEvent, callback, favPanel){
 			marksArr[i].style.top = marksRects[i+1].top+"px";
 			marksArr[i].style.left = marksRects[i+1].left+"px";
 		}
-			
+
 	}
 	function updateMarksRects(group, lastGroup){
 		hoverPlaceMark.element.style.opacity = "0";
@@ -3724,7 +3719,7 @@ function GrabAndPush(markData, grabMark, clickEvent, callback, favPanel){
 		}else{
 			helperMark.remove();
 			grabMark.element.style.top = "";
-			grabMark.element.style.left = "";		
+			grabMark.element.style.left = "";
 		}
 		newData = {
 			top: /*helperMark.element.getBoundingClientRect()*/sPstn.top+5 /*- globalOffset*/,
@@ -3736,14 +3731,14 @@ function GrabAndPush(markData, grabMark, clickEvent, callback, favPanel){
 		for(var i = 0; i<marksRects.length; i++){
 			marksRects[i].elem.style.top = "";
 			marksRects[i].elem.style.left = "";
-		}			
+		}
 		if(lastGroup != null){
 			groupList[lastGroup].style.height = "";
 			groupList[lastGroup].classList.remove("disconnected-marks");
 		}
 		//grabMark.remove();
 
-		let marksList = groupList[group].querySelectorAll(".mark, .mark_full");		
+		let marksList = groupList[group].querySelectorAll(".mark, .mark_full");
 		marksArr = [];
 		marksRects = [];
 		if(group != 0)
@@ -3833,14 +3828,14 @@ function GrabAndPush(markData, grabMark, clickEvent, callback, favPanel){
 			ghost.rippleMask.changeStyle([
 				{tag: "margin-top", value: (-ghost.rippleRadius)+"px"},
 				{tag: "margin-left", value: (-ghost.rippleRadius)+"px"}
-			]);		
+			]);
 			ghost.main.removeClass("clear-transition");
 			ghost.main.addClass("mark-hover-disabled");
 			/*favPanel.favoritesWraper.changeStyle([{
 				tag: "top",
 				value: h+"px"
 			}]);*/
-			/*favPanel.favGroup.addClass("reset-box-shadow", function(){				
+			/*favPanel.favGroup.addClass("reset-box-shadow", function(){
 				favPanel.favGroup.removeClass("float-fav-panel");
 			});*/
 			ghost.main.removeClass("minimalize-mark", function(){
@@ -3849,17 +3844,17 @@ function GrabAndPush(markData, grabMark, clickEvent, callback, favPanel){
 					//console.log(markData)
 					var mark;
 					if(markData.numbGroup != 0){
-						mark = file.all[markData.numbGroup-1].sites.splice(markData.numbMark, 1)[0];	
+						mark = file.all[markData.numbGroup-1].sites.splice(markData.numbMark, 1)[0];
 					}else mark = file.favorites.splice(markData.numbMark, 1)[0];
 					if(newData.group != 0){
-						file.all[newData.group-1].sites.splice(newData.position, 0, mark);	
-					}else file.favorites.splice(newData.position, 0, mark);				
+						file.all[newData.group-1].sites.splice(newData.position, 0, mark);
+					}else file.favorites.splice(newData.position, 0, mark);
 					save(file);
 				}, function(){
 					Window.dataOfTab.sitePanelIsLooked = false;
 					Window.dataOfTab.body.classList.remove("all-marks-hover-disabled");
 					callback();
-				});	
+				});
 			}, 400);
 			ghost.iconReal.changeStyle([
 				{tag: "margin-top", value: ((markData.isSmall)? 0 : 12)+"px"},
@@ -3869,7 +3864,7 @@ function GrabAndPush(markData, grabMark, clickEvent, callback, favPanel){
 	}
 }
 
-function compileBackup(param, callback){	
+function compileBackup(param, callback){
 	//sites
 	//settings
 	//bg
@@ -3892,25 +3887,25 @@ function compileBackup(param, callback){
 				saveSites(!param.sites, function(){
 					saveBGList(!param.bg, function(){
 						callback(fBackup);
-					});	
-				});	
+					});
+				});
 			});
 		});
-	});	
+	});
 
 	function saveSettings(skip, callback){
 		if(skip){
-			callback();	
+			callback();
 			return;
 		}
 		bgPage.Window.DB.changeFile("/settings/settings.json", function(settingsFile){
 			fBackup.data.settings = settingsFile;
-			callback();	
+			callback();
 		});
 	}
 	function saveStorage(skip, callback){
 		if(skip){
-			callback();	
+			callback();
 			return;
 		}
 		fBackup.data.storage = localStorage;
@@ -3920,7 +3915,7 @@ function compileBackup(param, callback){
 	}
 	function saveWatch(skip, callback){
 		if(skip){
-			callback();	
+			callback();
 			return;
 		}
 		fBackup.data.watch = {};
@@ -3937,7 +3932,7 @@ function compileBackup(param, callback){
 	}
 	function saveSites(skip, callback){
 		if(skip){
-			callback();	
+			callback();
 			return;
 		}
 		bgPage.Window.DB.changeFile("/settings/sitesList.json", function(sitesListFile){
@@ -3951,21 +3946,21 @@ function compileBackup(param, callback){
 							file: bs64
 						}
 						next();
-					});	
+					});
 				}, function(){
-					callback();					
+					callback();
 				})
-			});						
+			});
 		});
 	}
 	function saveBGList(skip, callback){
 		if(skip){
-			callback();	
+			callback();
 			return;
 		}
 		bgPage.Window.DB.changeFile("/settings/backgroundsList.json", function(backgroundsListFile){
 			fBackup.data.backgroundsList = backgroundsListFile;
-			callback();	
+			callback();
 		});
 	}
 
@@ -4019,7 +4014,7 @@ function acceptBackupFile(file){
 	for(var i=1; i<sites.length-2; i++) file.typeData +=", "+sites[i];
 	if(sites.length > 1) file.typeData += " и "+sites[sites.length-1];
 	if(sites.length == 0) file.typeData = "ничего";
-	
+
 	popup({
 		name: "Восстановление данных",
 		isWide: true,
@@ -4050,7 +4045,7 @@ function acceptBackupFile(file){
 									}, nextFile);
 								});
 								break;
-							case "storage": 
+							case "storage":
 								localStorage = dat[now].data;
 								nextFile();
 								break;
@@ -4075,7 +4070,7 @@ function acceptBackupFile(file){
 									});
 								});
 								break;
-							case "sitesIcons": 
+							case "sitesIcons":
 								queueProcessing(dat[now].data.length, 0, function(next, i){
 									var img = new Image();
 									img.src = dat[now].data[i].file
@@ -4084,7 +4079,7 @@ function acceptBackupFile(file){
 										var ctx = c.getContext("2d");
 										c.width = this.naturalWidth;
 										c.height = this.naturalHeight;
-										ctx.drawImage(this, 0, 0); 
+										ctx.drawImage(this, 0, 0);
 
 										c.toBlob(function(blob_icon){
 											bgPage.Window.DB.set("/icons", {
@@ -4098,7 +4093,7 @@ function acceptBackupFile(file){
 									}
 								}, nextFile)
 								break;
-							case "backgroundsList": 
+							case "backgroundsList":
 								/*Window.DB.changeFile("settings/", function(sFile, save){
 
 								});*/
@@ -4126,7 +4121,7 @@ function guide(nNewPos){
 		});
 		return;
 	}
-	var nowPos = (nNewPos)? nNewPos : localStorage.getItem("training_stage")-1;	
+	var nowPos = (nNewPos)? nNewPos : localStorage.getItem("training_stage")-1;
 	var scriptGuid = [
 		{
 			text: "Сохраняйте любимые сайты для быстрого доступа к ним. Чтобы посмотреть их, прокрутите колесико мыши вниз на главном экране.\
@@ -4142,7 +4137,7 @@ function guide(nNewPos){
 				function closeFunc(dontCheck){
 					if(!dontCheck && event.deltaY < 0) return;
 					removeEventListener("wheel", closeFunc);
-					callback();					
+					callback();
 					localStorage.setItem("training_stage", 2);
 				}
 			}
@@ -4188,7 +4183,7 @@ function guide(nNewPos){
 					document.getElementById("menu-clock").removeEventListener("click", closeFunc);
 					document.getElementById("menu").removeEventListener("click", act);
 					localStorage.setItem("training_stage", 4);
-				}				
+				}
 		}
 		},
 		{
@@ -4213,7 +4208,7 @@ function guide(nNewPos){
 					document.getElementById("menu-quick").removeEventListener("click", closeFunc);
 					document.getElementById("menu").removeEventListener("click", act);
 					localStorage.setItem("training_stage", 5);
-				}				
+				}
 			}
 		},
 		{
@@ -4232,13 +4227,13 @@ function guide(nNewPos){
 				}else act();
 				function act(){
 					document.getElementById("menu-bg").addEventListener("click", closeFunc);
-				}		
+				}
 				function closeFunc(){
 					callback();
 					document.getElementById("menu-bg").removeEventListener("click", closeFunc);
 					document.getElementById("menu").removeEventListener("click", act);
 					localStorage.setItem("training_stage", 6);
-				}		
+				}
 			}
 		},
 		{
@@ -4263,7 +4258,7 @@ function guide(nNewPos){
 					document.getElementById("menu-additionally").removeEventListener("click", closeFunc);
 					document.getElementById("menu").removeEventListener("click", act);
 					localStorage.setItem("training_stage", 7);
-				}				
+				}
 			}
 		}
 	];
@@ -4308,7 +4303,7 @@ function guide(nNewPos){
 										Window.dataOfTab.sitePanelIsLooked = false;
 										wraper.remove();
 										nowPos++;
-										localStorage.setItem("training_stage", ((localStorage.getItem("training_stage") > nowPos-2)? 
+										localStorage.setItem("training_stage", ((localStorage.getItem("training_stage") > nowPos-2)?
 												localStorage.getItem("training_stage") : 2));
 										loadScript();
 									});
@@ -4392,7 +4387,7 @@ function guide(nNewPos){
 			globalBody.appendChild(panel, function(){
 				panel.removeClass("gid-hide");
 				if(scriptGuid[nowPos].action) scriptGuid[nowPos].action(nextButton, function(){
-					panel.addClass("show-finish-notic");					
+					panel.addClass("show-finish-notic");
 					nextButton.distabled(false);
 				});
 			}, 50);
@@ -4439,7 +4434,7 @@ function guide(nNewPos){
 			Window.dataOfTab.sitePanel.addClass("hide", function(panel){
 				panel.remove();
 				Window.dataOfTab.sitePanelIsLooked = true;
-			});	
+			});
 		globalBody.appendChild(wraper, function(){
 			wraper.removeClass("gid-hide");
 		}, 50);
@@ -4486,8 +4481,8 @@ function editMarkActivity(data, callback){
 								: "/icons/"+name_icon,
 						name: (saveData.name.element.value),
 						url: saveData.url.element.value,
-						substring: (saveData.colorfull_sub.value)? ((saveData.preview.images[saveData.preview.select].baseColor != null)? 
-						saveData.preview.images[saveData.preview.select].baseColor 
+						substring: (saveData.colorfull_sub.value)? ((saveData.preview.images[saveData.preview.select].baseColor != null)?
+						saveData.preview.images[saveData.preview.select].baseColor
 																	 												   : saveData.preview.baseColor)
 																 : null
 					});
@@ -4504,7 +4499,7 @@ function editMarkActivity(data, callback){
 									});
 									return;
 								}
-								//alert("FILE SAVE");														
+								//alert("FILE SAVE");
 								console.log(file)
 								save(file);
 							});
@@ -4529,7 +4524,7 @@ function editMarkActivity(data, callback){
 							prw.setName(newName)
 						});
 					}
-				}			
+				}
 			}
 		}),
 		url: UI.createInput(),
@@ -4541,7 +4536,7 @@ function editMarkActivity(data, callback){
 						prw.setBaseColor((prw.baseColor != null)? prw.baseColor : saveData.preview.baseColor);
 					else
 						prw.setBaseColor(null);
-				});				
+				});
 			},
 			value: false,
 			content: "Подложка основным цветом"
@@ -4634,7 +4629,7 @@ function editMarkActivity(data, callback){
 	popup({
 		name: "Редактирование закладки",
 		isWide: true,
-		rightCol: (function(){											
+		rightCol: (function(){
 			var col = [
 				UI.createElem({tag: "h2", content: "Название"}),
 				inputName
@@ -4643,7 +4638,7 @@ function editMarkActivity(data, callback){
 		})(),
 		buttons: {
 			cancel: {click: function(){
-				
+
 			}},
 			ok: {
 				text: "Сохранить",

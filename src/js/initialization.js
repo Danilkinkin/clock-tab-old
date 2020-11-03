@@ -5,7 +5,7 @@ if(!JSON.parse(localStorage.getItem("first_contact"))){
 	window.open("welcome.html", "_self");
 }else{
 	if(localStorage.getItem("version") == "1.0.8") localStorage.setItem("version", 1);
-	if(JSON.parse(localStorage.getItem("version")) < 6){
+	if(JSON.parse(localStorage.getItem("version")) < 7){
 		window.open("update.html", "_self");
 	}
 }
@@ -36,7 +36,7 @@ Window.dataOfTab.updateVarStyles();
 /*
 	Загрузка данных пользователя
 */
-bgPage.Window.DB.changeFile("/settings/settings.json", function(file){	
+bgPage.Window.DB.changeFile("/settings/settings.json", function(file){
 	//console.log(file);
 	if(+localStorage.getItem("training_stage") < 8) guide();
 	if(file.open_site_panel_start){
@@ -54,13 +54,13 @@ bgPage.Window.DB.changeFile("/settings/settings.json", function(file){
 		if(Date.now() > JSON.parse(localStorage.getItem("next_check_background")))
 			bgPage.Window.DB.changeFile("/settings/settings.json", function(file){
 				getBackground(file);
-			});	
+			});
 	}, 30000);
 	if(file.type_of_watch != 0) CLOCK.connectClock(file.type_of_watch);
 	let site_panel = document.getElementById("site_panel");
-	if(file.site_panel_substrate) site_panel.classList.add("substrate");	
+	if(file.site_panel_substrate) site_panel.classList.add("substrate");
 	switch(file.site_panel_position){
-		case 0: 
+		case 0:
 			site_panel.parentNode.parentNode.style.justifyContent = "end";
 			site_panel.style.flexDirection = "column";
 			site_panel.parentNode.classList.add("looked_position");
@@ -80,7 +80,7 @@ bgPage.Window.DB.changeFile("/settings/settings.json", function(file){
 			site_panel.parentNode.parentNode.classList.add("looked_position");
 		break;
 	}
-	if(file.use_site_panel){		
+	if(file.use_site_panel){
 		drawFavPanel();
 		site_panel.classList.remove("hide");
 	}
@@ -104,10 +104,10 @@ addEventListener('visibilitychange', function() {
 		if(Window.dataOfTab.sitePanel) Window.dataOfTab.sitePanel.update()
 		if(localStorage.getItem("custom_tab_name"))
 			document.title = (localStorage.getItem("custom_tab_name") == "u200E")? "\u200E" : localStorage.getItem("custom_tab_name");
-		if(document.getElementById("background"))	
+		if(document.getElementById("background"))
 			if(document.getElementById("background").play) document.getElementById("background").play();
 	}else{
-		if(document.getElementById("background"))	
+		if(document.getElementById("background"))
 			if(document.getElementById("background").pause) document.getElementById("background").pause();
 	}
 }, false);
@@ -134,13 +134,13 @@ addEventListener("wheel", function(event){
 			Window.dataOfTab.sitePanel.addClass("hide", function(panel){
 				panel.clearContent();
 				Window.dataOfTab.sitePanelIsLooked = false;
-			});	
-			Window.dataOfTab.sitePanel = null;			
-		}			
+			});
+			Window.dataOfTab.sitePanel = null;
+		}
 	}
 });
 
-function getBackground(settingsFile, callback){	
+function getBackground(settingsFile, callback){
 	if(settingsFile.one_setting_for_selected_days){
 		parseDay(settingsFile.switching_background_in_special, callback);
 	}else{
@@ -154,7 +154,7 @@ function getBackground(settingsFile, callback){
 			var numb_BG_in_list;
 			var time = new Date();
 			if(daySettings.background_selection == 0){
-				//СЛУЧАЙНЫЙ			
+				//СЛУЧАЙНЫЙ
 				var addMin = (function(){
 					var min = 0;
 					switch(daySettings.random_selection.period){
@@ -163,7 +163,7 @@ function getBackground(settingsFile, callback){
 						case 3: min = 60; break;
 						case 4: min = 360; break;
 						case 5: min = 720; break;
-						case 6: 
+						case 6:
 						case 0: min = 1440; break;
 					}
 					return new function(){
@@ -173,7 +173,7 @@ function getBackground(settingsFile, callback){
 								if(this.min >= 60){
 									this.min = this.min % 60;
 									this.hour = this.hour+60;
-								}											
+								}
 							}else{
 								this.hour = (time.getHours()*60 < min)? min : time.getHours()*60 % min + min;
 								this.min = min % 60;
@@ -191,7 +191,7 @@ function getBackground(settingsFile, callback){
 				//console.log(types)
 				//console.log(bgList)
 				while(types.length > 0){
-					//console.log(daySettings.random_selection.type)					
+					//console.log(daySettings.random_selection.type)
 					type_BG = types[Math.round(Math.random()*(types.length-1))]
 					//console.log(type_BG)
 					//console.log(bgList[type_BG])
@@ -228,13 +228,13 @@ function getBackground(settingsFile, callback){
 			setBackground(
 				type_BG,
 				bgList[type_BG][numb_BG_in_list].type,
-				((bgList[type_BG][numb_BG_in_list].color)? 
+				((bgList[type_BG][numb_BG_in_list].color)?
 					bgList[type_BG][numb_BG_in_list].color:
 					bgList[type_BG][numb_BG_in_list].name),
 				bgList[type_BG][numb_BG_in_list].isPixelArt,
 				callback,
 				(daySettings.background_selection == 0)
-			);	
+			);
 			bgList.background_set_now[0].mode = daySettings.background_selection == 0;
 			saveFile(bgList);
 		}, function(isSuccess, resultErr){
@@ -252,7 +252,7 @@ function getBackgroundNowSet(settingsFile, callback){
 					  	bgList.background_set_now[0].name),
 					  bgList.background_set_now[0].isPixelArt,
 					  callback,
-					  bgList.background_set_now[0].mode);	
+					  bgList.background_set_now[0].mode);
 	});
 }
 
@@ -268,10 +268,10 @@ function setBackground(type, typeOfBG, name, isPixelArt, callback, isRandMode){
 			document.getElementById("background").remove();
 			setBackground(type, typeOfBG, name, isPixelArt, callback, isRandMode);
 		}, 300);
-		return;	
+		return;
 	}
 	switch(typeOfBG){
-		case "video": 
+		case "video":
 			UI.createElem(document.getElementById("backgroundWraper")).appendChild(UI.createElem({
 				tag: "video",
 				attr: [
@@ -286,7 +286,7 @@ function setBackground(type, typeOfBG, name, isPixelArt, callback, isRandMode){
 					onloadedmetadata: function(event){
 						setTimeout(function(){
 							event.srcElement.classList.remove("hide");
-						}, 300);					
+						}, 300);
 					},
 					onerror: function(){
 						console.error("ERROR LOAD VIDEO");
@@ -304,7 +304,7 @@ function setBackground(type, typeOfBG, name, isPixelArt, callback, isRandMode){
 			}));
 			typeOfBG = "image";
 			break;
-		case "image": 
+		case "image":
 			UI.createElem(document.getElementById("backgroundWraper")).appendChild(UI.createElem({
 				tag: "img",
 				attr: [
@@ -316,7 +316,7 @@ function setBackground(type, typeOfBG, name, isPixelArt, callback, isRandMode){
 					onload: function(event){
 						setTimeout(function(){
 							document.getElementById("background").classList.remove("hide");
-						}, 300);					
+						}, 300);
 					},
 					onerror: function(){
 						console.error("ERROR LOAD IMAGE");
@@ -334,7 +334,7 @@ function setBackground(type, typeOfBG, name, isPixelArt, callback, isRandMode){
 			}));
 			typeOfBG = "image";
 			break;
-		case "color": 
+		case "color":
 			UI.createElem(document.getElementById("backgroundWraper")).appendChild(UI.createElem({
 				tag: "div",
 				class: "color hide",
@@ -427,21 +427,21 @@ function test(){
 		image: "../image/ic_file_download_white_24dp_1x.gif",
 		deadFunc: function(dead, notic){
 			setTimeout(function(){
-				dead();		
+				dead();
 				setTimeout(test, 500);
-			}, 1000);			
+			}, 1000);
 		}
 	});
 }
 notification({
 	text: "Подготовка...",
 	image: "../image/ic_file_download_white_24dp_1x.gif",
-	deadFunc: function(dead, notic){			
+	deadFunc: function(dead, notic){
 	}
 });
 notification({
 	text: "Подгот asd asd ass fad овка...",
 	image: "../image/ic_file_download_white_24dp_1x.gif",
-	deadFunc: function(dead, notic){			
+	deadFunc: function(dead, notic){
 	}
 });*/
