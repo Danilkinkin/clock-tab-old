@@ -126,6 +126,13 @@ document.getElementById("start_work").onclick = function(){
 	}, 300);
 }
 
+document.getElementById("migrate_to_rigami").onclick = function(){
+	document.body.classList.add("hide");
+	setTimeout(function(){
+		window.open("https://chrome.google.com/webstore/detail/rigami-%D0%BD%D0%BE%D0%B2%D0%B0%D1%8F-%D0%B2%D0%BA%D0%BB%D0%B0%D0%B4%D0%BA%D0%B0/hdpjmahlkfndaejogipnepcgdmjiamhd", "_blank");
+	}, 300);
+}
+
 document.getElementById("download_notes").onclick = function(){
 	Window.DB.changeFile("/settings/settings.json", function(file){
 		if(file.notes && file.notes.length != 0) downloadNotes(file.notes);
