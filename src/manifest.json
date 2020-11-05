@@ -3,8 +3,8 @@
 
 	"name": "ClockTab - Новая вкладка",
 	"short_name": "ClockTab",
-	"version": "1.6.29",
-	"homepage_url": "http://danilkinkin.com/projects/clockTab/",
+	"version": "1.6.30",
+	"homepage_url": "https://rigami.io/",
 	"minimum_chrome_version": "48",
 	"offline_enabled": true,
 
@@ -25,7 +25,7 @@
 		"storage",
 		"unlimitedStorage",
 		"*://*/*",
-		"http://danilkinkin.com/"
+		"https://api.rigami.io/"
 	],
 	"chrome_url_overrides": {
       "newtab": "main.html"
