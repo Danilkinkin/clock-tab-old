@@ -189,9 +189,10 @@ function loadBG(){
 	var offline = false;
 	document.getElementById("load_info").innerHTML = "Инициализация";
 
-	Window.DB.sendRequest("http://danilkinkin.com/backgrounds/full/0000.jpg", {}, function(full){
+	Window.DB.sendRequest("https://api.rigami.io/jeremy-bishop-hVkDaLkoiec-unsplash.jpg", {}, function(full){
 		if(full.size == 0) offline = true;
-		Window.DB.sendRequest("http://danilkinkin.com/backgrounds/preview/0000.jpg", {}, function(preview){
+
+		getPreviewFile(full, function(preview){
 			document.getElementById("load_info").innerHTML = "Финальная подготовка";
 			if(offline){
 				Window.DB.changeFile("/settings/settings.json", function(file, saveFile){
@@ -206,7 +207,7 @@ function loadBG(){
 				saveBackgroundFileInSystem({
 					file: new File([full], "0000.jpg", {type: "image/"}),
 					preview: new File([preview], "0000.jpg"),
-					urlFile: "http://danilkinkin.com/backgrounds/0000.jpg",
+					urlFile: "https://api.rigami.io/jeremy-bishop-hVkDaLkoiec-unsplash.jpg",
 					isPixelArt: false,
 					isLocal: false
 				}, finStage);
@@ -224,8 +225,6 @@ function loadBG(){
 					}, 50);
 				}, 1000);
 			}
-		},{type: "GET", blob: true}, function(percent){
-			document.getElementById("load_info").innerHTML = (Math.round(percent*0.2+80))+"%";
 		});
 	},{type: "GET", blob: true}, function(percent){
 		document.getElementById("load_info").innerHTML = Math.round(percent*0.8)+"%";
@@ -241,4 +240,78 @@ document.getElementById("start_work").onclick = function(){
 	setTimeout(function(){
 		window.open("main.html", "_self");
 	}, 300);
+}
+
+
+function getPreviewFile(file, callback){
+	/*
+		Создание превью для фонов
+	*/
+	var canvas = document.createElement("canvas");
+	var ctx = canvas.getContext("2d");
+
+	if(~file.type.indexOf("video")){
+		var video = document.createElement("video");
+		video.setAttribute("src", URL.createObjectURL(file));
+		video.setAttribute("autoplay","");
+		video.setAttribute("muted","");
+
+		video.onloadedmetadata = function(){
+			video.currentTime = video.duration/2;
+			video.addEventListener('play', function(){
+				canvas.width = video.videoWidth;
+				canvas.height = video.videoHeight;
+				ctx.drawImage(video, 0, 0);
+				//console.log(canvas.toDataURL("image/png"));
+				postprocessing(canvas);
+			},false);
+		}
+
+	}else{
+		var img = document.createElement("img");
+		img.setAttribute("src", URL.createObjectURL(file));
+
+		img.onload = function(){
+			canvas.width = img.width;
+			canvas.height = img.height;
+			ctx.drawImage(img, 0, 0);
+			postprocessing(canvas);
+		}
+	}
+
+	function postprocessing(cnvs){
+		var oc   = document.createElement('canvas'),
+			octx = oc.getContext('2d');
+		if((cnvs.width > 250*4)&&(cnvs.height > 141*4)){
+			oc.width  = cnvs.width  * 0.5;
+			oc.height = cnvs.width * 0.5;
+
+			octx.drawImage(cnvs, 0, 0, oc.width, oc.height);
+
+			octx.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5);
+
+			cnvs.getContext("2d").drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5, 0, 0, cnvs.width,   cnvs.height);
+		}
+
+		var canvasResize = document.createElement("canvas");
+		var ctxResize = canvasResize.getContext("2d");
+		if(cnvs.width/cnvs.height < 1.7730496453900708){
+			canvasResize.width = 250;
+			canvasResize.height = 250/cnvs.width*cnvs.height;
+		}else{
+			canvasResize.width = 141/cnvs.height*cnvs.width;
+			canvasResize.height = 141;
+		}
+		ctxResize.drawImage(cnvs, 0, 0, cnvs.width, cnvs.height, 0, 0, canvasResize.width, canvasResize.height);
+		oc.width  = 250;
+		oc.height = 141;
+		if(cnvs.width/cnvs.height < 1.7730496453900708){
+			octx.drawImage(canvasResize, 0, -(canvasResize.height-141)*0.5, canvasResize.width, canvasResize.height);
+		}else{
+			octx.drawImage(canvasResize, -(canvasResize.width-250)*0.5, 0, canvasResize.width, canvasResize.height);
+		}
+		oc.toBlob(function(blob){
+			callback(blob);
+		}, "image/jpeg", 1);
+	}
 }

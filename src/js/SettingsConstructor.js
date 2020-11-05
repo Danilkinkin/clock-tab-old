@@ -1076,9 +1076,18 @@ function openMenu(){
 							{tag: "href", value: "http://danilkinkin.com"},
 							{tag: "target", value: "_blank"}
 						],
-						content: "Другие проекты Danilkinkin"
+						content: "Страница разработчика"
 					}),
 					UI.createElem({
+						tag: "a",
+						class: "href",
+						attr: [
+							{tag: "href", value: "https://chrome.google.com/webstore/detail/rigami-%D0%BD%D0%BE%D0%B2%D0%B0%D1%8F-%D0%B2%D0%BA%D0%BB%D0%B0%D0%B4%D0%BA%D0%B0/hdpjmahlkfndaejogipnepcgdmjiamhd"},
+							{tag: "target", value: "_blank"}
+						],
+						content: "Перейти на новую версию ресширения"
+					}),
+					/* UI.createElem({
 						tag: "a",
 						class: "href",
 						attr: [
@@ -1095,7 +1104,7 @@ function openMenu(){
 							{tag: "target", value: "_blank"}
 						],
 						content: "О расширении"
-					}),
+					}), */
 					UI.createElem({
 						tag: "a",
 						class: "href",
@@ -1105,7 +1114,7 @@ function openMenu(){
 						],
 						content: "Написать разработчику"
 					}),
-					UI.createElem({
+					/* UI.createElem({
 						tag: "a",
 						class: "href",
 						attr: [
@@ -1113,7 +1122,7 @@ function openMenu(){
 							{tag: "target", value: "_blank"}
 						],
 						content: "Политика конфидициальности"
-					}),
+					}), */
 					UI.createElem({
 						tag: "h2",
 						content: "Danilkinkin | 2018"
@@ -1388,26 +1397,6 @@ function BGManagerConstructor(openPage){
 							tag: "h1",
 							content: "Менеджер фонов"
 						}),
-						UI.createSelection({
-							options: ["Каталог", "Загруженные"],
-							settings: {
-								style: ["margin-right: 15px;"]
-							},
-							style: ["margin-right: 15px;"],
-							click: function(value){
-								if(value == 0){
-									webCatalog(function(sortFuncCal){
-										sortFunc = sortFuncCal;
-										sortFunc(sortBy.value);
-									});
-
-									sortBy.removeClass("DOE_hide");
-								}else{
-									localCatalog();
-									sortBy.addClass("DOE_hide");
-								}
-							}
-						}),
 						sortBy,
 						UI.createButton({
 							click: function(){
@@ -1425,10 +1414,8 @@ function BGManagerConstructor(openPage){
 			]
 		})
 	});
-	webCatalog(function(sortFuncCal){
-		sortFunc = sortFuncCal;
-		sortFunc(sortBy.value);
-	});
+	localCatalog();
+	sortBy.addClass("DOE_hide");
 	//Window.dataOfTab.countPreview = Math.floor((BG_manager.element.clientWidth-25)/260);
 
 	function webCatalog(callback, bgList){
